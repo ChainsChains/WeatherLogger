@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WeatherLogger</string>
+    <string name="service_not_available">Service not available</string>
+    <string name="invalid_lat_long_used">Invalid lat or long used</string>
+    <string name="address_found">Address found</string>
+    <string name="no_address_found">No address found</string>
+    <string name="location_rationale">Location permission is needed to fetch weather data by your location</string>
+    <string name="rationale_ask_ok">Accept</string>
+    <string name="rationale_ask_cancel">Cancel</string>
+</resources>
