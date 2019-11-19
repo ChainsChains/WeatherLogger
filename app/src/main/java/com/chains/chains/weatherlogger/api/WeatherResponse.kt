@@ -55,7 +55,7 @@ data class WeatherResponse(
         @field:SerializedName("temp_max")
         val tempMax: Double,
         @field:SerializedName("temp_min")
-        val tempMin: Int
+        val tempMin: Double
     )
 
     data class Sys(

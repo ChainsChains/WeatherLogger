@@ -13,7 +13,7 @@ interface BaseView<T> {
 
 interface MainContract {
     interface View : BaseView<ViewModel> {
-        fun onWeatherDataLoaded(data: Resource<List<WeatherConditions>>)
+        fun onWeatherDataLoaded(resource: Resource<List<WeatherConditions>>)
         fun onSaveClicked(view: android.view.View)
     }
 

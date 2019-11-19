@@ -2,18 +2,21 @@ package com.chains.chains.weatherlogger
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chains.chains.weatherlogger.contract.MainContract
 import com.chains.chains.weatherlogger.managers.AddressManager
 import com.chains.chains.weatherlogger.managers.LocationPermissionManager
+import com.chains.chains.weatherlogger.ui.RwAdapter
 import com.chains.chains.weatherlogger.util.Resource
 import com.chains.chains.weatherlogger.viewmodel.MainViewModel
 import com.chains.chains.weatherlogger.viewmodel.ViewModelFactory
 import com.chains.chains.weatherlogger.vo.WeatherConditions
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
@@ -34,21 +37,30 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override lateinit var viewModel: MainContract.ViewModel
-    private lateinit var text: TextView
 
     private lateinit var locationPermissionManager: LocationPermissionManager
     private lateinit var addressManager: AddressManager
+
+    private lateinit var rwAdapter: RwAdapter
+    private lateinit var rwLayoutManager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        text = findViewById(R.id.text)
         locationPermissionManager = LocationPermissionManager(this)
         addressManager = AddressManager(this)
         viewModel = ViewModelProviders.of(this, ViewModelFactory(this))
             .get(MainViewModel::class.java)
         subscribeToData()
+
+        rwLayoutManager = LinearLayoutManager(this)
+        rwAdapter = RwAdapter(emptyList())
+
+        main_list_rw.apply {
+            layoutManager = rwLayoutManager
+            adapter = rwAdapter
+        }
     }
 
     private fun subscribeToData() {
@@ -68,8 +80,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         locationPermissionManager.makePermissionRequest()
     }
 
-    override fun onWeatherDataLoaded(data: Resource<List<WeatherConditions>>) {
-        println(data)
+    override fun onWeatherDataLoaded(resource: Resource<List<WeatherConditions>>) {
+        resource.data?.let { rwAdapter.setData(it) }
     }
 
     override fun onError(errorMessage: String) {}

@@ -2,10 +2,11 @@ package com.chains.chains.weatherlogger.repository
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chains.chains.weatherlogger.util.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 abstract class WeatherListResource<ResultType, RequestType>() {
     private val result = MutableLiveData<Resource<ResultType>>()
@@ -17,9 +18,6 @@ abstract class WeatherListResource<ResultType, RequestType>() {
         data.observeForever {
             setValue(Resource.success(it))
         }
-//        dbSource.observe() { data ->
-//            setValue(Resource.success(data))
-//        }
     }
 
     @MainThread
@@ -34,12 +32,14 @@ abstract class WeatherListResource<ResultType, RequestType>() {
         apiResponse.observeForever { response ->
             when (response) {
                 is ApiSuccessResponse -> {
-                    saveWeatherResult(response)
+                    GlobalScope.launch {
+                        saveWeatherResult(response)
+                    }
                 }
-                is ApiEmptyResponse<*> -> {
+                is ApiEmptyResponse -> {
 
                 }
-                is ApiErrorResponse<*> -> {
+                is ApiErrorResponse -> {
 
                 }
             }
