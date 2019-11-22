@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/item_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <data>
 
-    <TextView
-        android:id="@+id/item_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <variable
+            name="viewModel"
+            type="com.chains.chains.weatherlogger.viewmodel.ConditionViewModel" />
+    </data>
 
-    <TextView
-        android:id="@+id/item_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/item_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mutableText="@{viewModel.city}" />
+
+        <TextView
+            android:id="@+id/item_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mutableText="@{viewModel.temp}" />
+
+        <TextView
+            android:id="@+id/item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mutableText="@{viewModel.time}" />
+
+    </LinearLayout>
+</layout>

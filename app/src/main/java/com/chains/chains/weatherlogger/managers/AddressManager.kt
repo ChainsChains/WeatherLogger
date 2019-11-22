@@ -12,7 +12,7 @@ import com.chains.chains.weatherlogger.service.FetchAddressIntentService
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-class AddressManager(private val context: Context) {
+class AddressManager (private val context: Context) {
     private val fusedLocationClient: FusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(context)
     }

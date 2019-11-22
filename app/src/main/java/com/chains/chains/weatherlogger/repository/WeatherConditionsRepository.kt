@@ -1,6 +1,5 @@
 package com.chains.chains.weatherlogger.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.chains.chains.weatherlogger.api.ApiInterface
 import com.chains.chains.weatherlogger.api.WeatherResponse
@@ -11,7 +10,7 @@ import com.chains.chains.weatherlogger.util.ApiResponse
 import com.chains.chains.weatherlogger.util.ApiSuccessResponse
 import com.chains.chains.weatherlogger.util.Resource
 import com.chains.chains.weatherlogger.vo.WeatherConditions
-import java.time.Instant
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -27,7 +26,7 @@ class WeatherConditionsRepository @Inject constructor(
             }
 
             override fun createCall(city: String): LiveData<ApiResponse<WeatherResponse>> {
-                return weatherService.fetchWeather("Riga", appid, units)
+                return weatherService.fetchWeather(city, appid, units)
             }
 
             override fun saveWeatherResult(item: ApiSuccessResponse<WeatherResponse>) {
@@ -35,7 +34,7 @@ class WeatherConditionsRepository @Inject constructor(
                     WeatherConditions(
                         item.body.name,
                         item.body.main.temp.toString(),
-                        Date().time.toString()
+                        SimpleDateFormat("dd MMMM hh:mm:ss",Locale.ENGLISH).format(Date()).toString()
                     )
                 )
             }

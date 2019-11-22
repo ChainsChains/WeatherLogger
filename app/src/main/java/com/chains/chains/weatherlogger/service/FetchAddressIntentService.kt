@@ -52,6 +52,9 @@ class FetchAddressIntentService : IntentService("FetchAddressIntentService") {
                 // In this sample, we get just a single address.
                 1
             )
+        } catch (e: IllegalStateException) {
+            errorMessage = getString(R.string.service_not_available)
+            Log.e(TAG, errorMessage, e)
         } catch (ioException: IOException) {
             // Catch network or other I/O problems.
             errorMessage = getString(R.string.service_not_available)
@@ -73,16 +76,12 @@ class FetchAddressIntentService : IntentService("FetchAddressIntentService") {
             }
             deliverResultToReceiver(Constants.FAILURE_RESULT, errorMessage)
         } else {
-            val address = addresses[0]
-            // Fetch the address lines using getAddressLine,
-            // join them, and send them to the thread.
-            val addressFragments = with(address) {
-                (0..maxAddressLineIndex).map { getAddressLine(it) }
-            }
+            val cityName = addresses[0].locality
             Log.i(TAG, getString(R.string.address_found))
+
             deliverResultToReceiver(
                 Constants.SUCCESS_RESULT,
-                addressFragments.joinToString(separator = "\n")
+                cityName
             )
         }
     }

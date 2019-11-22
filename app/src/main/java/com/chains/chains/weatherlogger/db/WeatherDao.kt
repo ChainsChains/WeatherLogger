@@ -14,7 +14,7 @@ abstract class WeatherDao {
 
     @Query(
         """
-            SELECT * FROM WeatherConditions"""
+            SELECT * FROM WeatherConditions ORDER BY timestamp DESC"""
     )
     abstract fun getAll(): LiveData<List<WeatherConditions>>
 

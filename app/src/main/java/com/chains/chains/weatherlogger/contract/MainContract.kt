@@ -15,10 +15,13 @@ interface MainContract {
     interface View : BaseView<ViewModel> {
         fun onWeatherDataLoaded(resource: Resource<List<WeatherConditions>>)
         fun onSaveClicked(view: android.view.View)
+        fun fetchWeatherData(city: String)
+        fun requestLocation()
     }
 
     interface ViewModel {
         fun fetchWeatherData(city: String)
+        fun updateAdapterData(resource: Resource<List<WeatherConditions>>)
         fun subscribeWeatherData(): LiveData<Resource<List<WeatherConditions>>>
         fun subscribeLoadingVisibility(): MutableLiveData<Int>
     }
