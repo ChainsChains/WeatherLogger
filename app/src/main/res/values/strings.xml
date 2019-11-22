@@ -7,4 +7,7 @@
     <string name="location_rationale">Location permission is needed to fetch weather data by your location</string>
     <string name="rationale_ask_ok">Accept</string>
     <string name="rationale_ask_cancel">Cancel</string>
+    <string name="item_city_field">City:</string>
+    <string name="item_temp_field">Temperature:</string>
+    <string name="item_time_field">Time:</string>
 </resources>

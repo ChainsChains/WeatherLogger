@@ -6,6 +6,7 @@ buildscript {
     ext.play_services_version = '17.0.0'
     ext.easypermissions_version = '3.0.0'
     ext.databinding_version = '3.1.4'
+    ext.roboelectric_version = '4.3.1'
 
 
     repositories {
